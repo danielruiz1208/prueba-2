@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:replace="~{layout :: titulo}">Usuario</title>
+</head>
+<body>
+<div th:replace="~{layout :: contenido}">
+  <h1 th:text="${usuario.idUsuario} ? 'Editar Usuario' : 'Nuevo Usuario'"></h1>
+  <div class="card">
+    <div class="card-body">
+      <!-- Definir la URL según si es edición o creación -->
+      <th:block th:with="actionUrl=${usuario.idUsuario} ? @{/admin/usuarios/editar/{id}(id=${usuario.idUsuario})} : @{/admin/usuarios/nuevo}">
+        <form th:action="${actionUrl}" method="post" th:object="${usuario}">
+          <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="usuario" th:field="*{usuario}" required>
+          </div>
+          <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" required>
+          </div>
+          <div class="mb-3">
+            <label for="rol" class="form-label">Rol</label>
+            <select class="form-select" id="rol" th:field="*{rol}" required>
+              <option value="Administrador">Administrador</option>
+              <option value="Estudiante">Estudiante</option>
+              <option value="Docente">Docente</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="ru" class="form-label">RU</label>
+            <input type="number" class="form-control" id="ru" th:field="*{ru}" required>
+          </div>
+          <div th:if="${error}" class="error mb-3" th:text="${error}"></div>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <a th:href="@{/admin/usuarios}" class="btn btn-secondary">Cancelar</a>
+        </form>
+      </th:block>
+    </div>
+  </div>
+</div>
+</body>
+</html>
