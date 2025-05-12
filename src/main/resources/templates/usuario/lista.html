@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{layout :: titulo}">Gestión de Usuarios</title>
+</head>
+<body>
+<div th:replace="~{layout :: contenido}">
+    <h1>Gestión de Usuarios</h1>
+    <a th:href="@{/admin/usuarios/nuevo}" class="btn btn-primary mb-3">Nuevo Usuario</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>RU</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.idUsuario}"></td>
+            <td th:text="${usuario.usuario}"></td>
+            <td th:text="${usuario.rol}"></td>
+            <td th:text="${usuario.ru}"></td>
+            <td>
+                <a th:href="@{/admin/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-warning btn-sm">Editar</a>
+                <a th:href="@{/admin/usuarios/eliminar/{id}(id=${usuario.idUsuario})}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
